@@ -8,6 +8,7 @@ Output: dataset/<class>/<class><index>.wav
 """
 
 import os
+import sys
 import time
 import shutil
 import numpy as np
@@ -18,12 +19,24 @@ from scipy.io.wavfile import write
 # CONFIG
 # ==================================================
 CLASSES           = ["left", "no", "right", "start", "stop", "yes"]
-SAMPLES_PER_CLASS = 100        # ✅ target: 100 per class
+SAMPLES_PER_CLASS = 100
 SAMPLE_RATE       = 16000
 DURATION          = 1.5
 DATASET_PATH      = "dataset"
 COUNTDOWN         = 1
 VAD_THRESHOLD     = 0.005
+
+# ==================================================
+# SAFE INPUT  ✅ fixes EOFError in any terminal
+# ==================================================
+def safe_input(prompt: str, default: str = "") -> str:
+    try:
+        sys.stdout.write(prompt)
+        sys.stdout.flush()
+        return sys.stdin.readline().strip()
+    except EOFError:
+        print(f"\n(using default: '{default}')")
+        return default
 
 # ==================================================
 # HELPERS
@@ -51,7 +64,7 @@ def print_summary():
     print("  Dataset Summary")
     print("-"*30)
     total = 0
-    for cls in os.listdir(DATASET_PATH) if os.path.exists(DATASET_PATH) else []:
+    for cls in (os.listdir(DATASET_PATH) if os.path.exists(DATASET_PATH) else []):
         folder = os.path.join(DATASET_PATH, cls)
         if os.path.isdir(folder):
             count = count_existing(folder)
@@ -62,15 +75,14 @@ def print_summary():
     print("="*50)
 
 def clean_invalid_folders():
-    """Remove folders that are not in CLASSES (e.g. 'copy')"""
     if not os.path.exists(DATASET_PATH):
         return
     removed = []
     for folder_name in os.listdir(DATASET_PATH):
         folder_path = os.path.join(DATASET_PATH, folder_name)
         if os.path.isdir(folder_path) and folder_name not in CLASSES:
-            confirm = input(f"\n  ⚠ Found unknown folder '{folder_name}' — delete it? (y/n): ").strip().lower()
-            if confirm == "y":
+            confirm = safe_input(f"\n  ⚠ Found unknown folder '{folder_name}' — delete it? (y/n): ", "n")
+            if confirm.lower() == "y":
                 shutil.rmtree(folder_path)
                 removed.append(folder_name)
                 print(f"  ✓ Deleted: {folder_name}")
@@ -98,7 +110,7 @@ def collect_class(label: str):
     print(f"  Have  : {existing}  |  Need: {needed} more  |  Target: {SAMPLES_PER_CLASS}")
     print(f"  Say '{label}' clearly each time you see SPEAK NOW")
     print(f"{'='*50}")
-    input("  Press Enter when ready...\n")
+    safe_input("  Press Enter when ready...\n", "")
 
     recorded = 0
     idx      = existing + 1
@@ -141,16 +153,14 @@ def main():
     print(f"  Classes: {CLASSES}")
     print("="*50)
 
-    # Clean up invalid folders first
     clean_invalid_folders()
 
-    # Show current status
     print("\nCurrent status:")
     for i, cls in enumerate(CLASSES, 1):
-        existing = count_existing(os.path.join(DATASET_PATH, cls))
+        existing  = count_existing(os.path.join(DATASET_PATH, cls))
         remaining = max(0, SAMPLES_PER_CLASS - existing)
-        bar = "█" * int(existing / SAMPLES_PER_CLASS * 20)
-        pad = "░" * (20 - len(bar))
+        bar  = "█" * int(existing / SAMPLES_PER_CLASS * 20)
+        pad  = "░" * (20 - len(bar))
         done = "✓" if remaining == 0 else f"{remaining} more needed"
         print(f"  {i}. {cls:<8} [{bar}{pad}] {existing:>3}/{SAMPLES_PER_CLASS}  {done}")
 
@@ -161,7 +171,7 @@ def main():
     print("  q = Quit")
 
     while True:
-        choice = input("\nEnter choice: ").strip().lower()
+        choice = safe_input("\nEnter choice: ", "q").lower()
 
         if choice == "q":
             print("\nExiting.")
@@ -176,8 +186,7 @@ def main():
             break
         elif choice.isdigit() and 1 <= int(choice) <= len(CLASSES):
             collect_class(CLASSES[int(choice) - 1])
-            # Ask if they want to continue
-            again = input("\n  Record another word? (0=all / 1-6=word / q=quit): ").strip().lower()
+            again = safe_input("\n  Record another word? (0=all / 1-6=word / q=quit): ", "q").lower()
             if again == "q":
                 break
             elif again == "0":
