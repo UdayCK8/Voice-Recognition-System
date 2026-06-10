@@ -138,7 +138,7 @@ HTML = """<!DOCTYPE html>
 <body>
 <div class="wrapper">
   <header>
-    <div class="logo-line">⬡VOICE COMMAND SYSYSTEM</div>
+    <div class="logo-line">⬡-VOICE COMMAND SYSYSTEM</div>
     <div class="sub-line">SVM · MFCC · Real-Time Recognition · v2.0</div>
   </header>
   <div class="main-grid">
@@ -180,6 +180,11 @@ HTML = """<!DOCTYPE html>
             <div class="prob-row"><span class="prob-class">start</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-start"></div></div><span class="prob-pct" id="pct-start">0%</span></div>
             <div class="prob-row"><span class="prob-class">stop</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-stop"></div></div><span class="prob-pct" id="pct-stop">0%</span></div>
             <div class="prob-row"><span class="prob-class">yes</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-yes"></div></div><span class="prob-pct" id="pct-yes">0%</span></div>
+            <div class="prob-row"><span class="prob-class">down</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-down"></div></div><span class="prob-pct" id="pct-down">0%</span></div>
+<div class="prob-row"><span class="prob-class">speak</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-speak"></div></div><span class="prob-pct" id="pct-speak">0%</span></div>
+<div class="prob-row"><span class="prob-class">rcb</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-rcb"></div></div><span class="prob-pct" id="pct-rcb">0%</span></div>
+<div class="prob-row"><span class="prob-class">class</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-class"></div></div><span class="prob-pct" id="pct-class">0%</span></div>
+<div class="prob-row"><span class="prob-class">mine</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-mine"></div></div><span class="prob-pct" id="pct-mine">0%</span></div>
           </div>
         </div>
       </div>
@@ -195,7 +200,7 @@ HTML = """<!DOCTYPE html>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-  const CLASSES   = ["left","no","right","start","stop","yes"];
+  const CLASSES = ["left","no","right","start","stop","yes","down","speak","rcb","class","mine"];
   const RECORD_MS = 2000;
 
   let mediaRecorder=null,audioChunks=[],isRecording=false,timerInterval=null,stream=null;
