@@ -6,3 +6,7 @@ sounddevice
 scipy
 joblib
 matplotlib
+flask
+gunicorn
+soundfile
+audioread
