@@ -152,7 +152,7 @@ Classification Report:
 
 ## 👤 Author
 
-**Voice Recognition System** — Final Year MCA Project  
+**Voice Recognition System** —  MCA Project  
 Built with Python, Machine Learning, and real-time web technology.
 
 ---
