@@ -177,8 +177,6 @@ HTML = """<!DOCTYPE html>
             <div class="prob-row"><span class="prob-class">left</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-left"></div></div><span class="prob-pct" id="pct-left">0%</span></div>
             <div class="prob-row"><span class="prob-class">no</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-no"></div></div><span class="prob-pct" id="pct-no">0%</span></div>
             <div class="prob-row"><span class="prob-class">right</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-right"></div></div><span class="prob-pct" id="pct-right">0%</span></div>
-            <div class="prob-row"><span class="prob-class">start</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-start"></div></div><span class="prob-pct" id="pct-start">0%</span></div>
-            <div class="prob-row"><span class="prob-class">stop</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-stop"></div></div><span class="prob-pct" id="pct-stop">0%</span></div>
             <div class="prob-row"><span class="prob-class">yes</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-yes"></div></div><span class="prob-pct" id="pct-yes">0%</span></div>
             <div class="prob-row"><span class="prob-class">down</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-down"></div></div><span class="prob-pct" id="pct-down">0%</span></div>
 <div class="prob-row"><span class="prob-class">speak</span><div class="prob-bar-bg"><div class="prob-bar" id="bar-speak"></div></div><span class="prob-pct" id="pct-speak">0%</span></div>
@@ -200,7 +198,7 @@ HTML = """<!DOCTYPE html>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-  const CLASSES = ["left","no","right","start","stop","yes","down","speak","rcb","class","mine"];
+  const CLASSES = ["left","no","right","yes","down","speak","rcb","class","mine"];
   const RECORD_MS = 2000;
 
   let mediaRecorder=null,audioChunks=[],isRecording=false,timerInterval=null,stream=null;

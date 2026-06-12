@@ -3,7 +3,15 @@ import sounddevice as sd
 from scipy.io.wavfile import write
 import numpy as np
 
-commands = ["start", "stop", "left", "right", "yes", "no",]
+commands = [ "left",
+    "no",
+    "right",
+    "yes",
+    "down",
+    "speak",
+    "rcb",
+    "class",
+    "mine"]
 
 print("Available commands:")
 for i, cmd in enumerate(commands, start=1):

@@ -12,7 +12,7 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 # CONFIG
 # -----------------------------
 DATASET_PATH = "dataset"
-CLASSES      = ["left", "no", "right", "start", "stop", "yes", "down", "speak", "rcb", "class", "mine"]
+CLASSES      = ["left", "no", "right", "yes", "down", "speak", "rcb", "class", "mine"]
 N_MFCC       = 40
 FEATURE_SIZE = N_MFCC * 6   # mean+std for mfcc, delta, delta2  →  240
 SR           = 16000

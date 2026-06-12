@@ -24,8 +24,6 @@ CLASSES = [
     "left",
     "no",
     "right",
-    "start",
-    "stop",
     "yes",
     "down",
     "speak",
